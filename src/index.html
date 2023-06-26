@@ -1,22 +1,30 @@
 <html lang="en-US">
+
 <head>
-  <title>Weather</title>
+    <title>Weather</title>
 </head>
+
 <body>
-  <div class="container">
-    <h1>Get Weather Conditions From Anywhere!</h1>
-    <p>To get the current weather conditions for a location, please enter the city name or the city and state separated by a comma. Here are three examples:</p>
-    <pre>
-      Portland
-      Atlanta, Georgia
-      cairo
-    </pre>
-    <form>
-      <label for="location">Enter a location:</label>
-      <input id="location" type="text" name="location">
-      <button type="submit" class="btn-success" id="weatherLocation">Get Current Temperature and Humidity</button>
-    </form>
-    <p id="showResponse"></p>
-  </div>
+    <div class="container">
+        <h1>Get Weather Conditions From Anywhere!</h1>
+        <p>To get the current weather conditions for a location, please enter the city name or the city and state
+            separated by a comma. Here are three examples:</p>
+        <pre>
+        Portland
+        Atlanta, Georgia
+        cairo
+        </pre>
+        <form id="weather-form">
+            <label for="location">Enter a location:</label>
+            <input id="location" type="text" name="location">
+            <!-- <label for="cityId">Enter a location:</label>
+            <input id="cityId" type="text" name="cityId"> -->
+            <button type="submit" class="btn-success" id="weatherLocation">Get Current Temperature and Humidity</button>
+        </form>
+        <p id="showResponse"></p>
+        <h3 id="air-pol-stats" class="hidden">Air Pollution Stats</h3>
+        <p id="showairResponse"></p>
+    </div>
 </body>
+
 </html>
