@@ -76,9 +76,14 @@ function getAqiDescription(aqi) {
 function printPollutionElements(apiResponse, city) {
     let aqi = apiResponse.list[0].main.aqi;
     let aqiQualitiveName = getAqiDescription(aqi);
-    // document.querySelector('#showairResponse').innerText = `Air Quality in ${city} is ${apiResponse.list[0].main.aqi}.
-    // `;
-    document.querySelector('#showairResponse').innerText = `Air Quality in ${city} is ${aqiQualitiveName}.
+    document.querySelector('#showairResponse').innerHTML = 
+    `Air Quality in ${city} is <strong>${aqiQualitiveName}</strong>.<br>
+    CO: ${apiResponse.list[0].components.co}<br>
+    NO<sub>2</sub>: ${apiResponse.list[0].components.no}<br>
+    O<sub>3</sub>: ${apiResponse.list[0].components.o3}<br>
+    SO<sub>3</sub>: ${apiResponse.list[0].components.so2}<br>
+    PM<sub>10</sub>: ${apiResponse.list[0].components.pm10}<br>
+    PM<sub>2.5</sub>: ${apiResponse.list[0].components.pm2_5}
     `;
 }
 
@@ -88,12 +93,37 @@ function printError(request, apiResponse, city) {
     <strong>${request.status}</strong> | <strong>${request.statusText}:</strong> <em>${apiResponse.message}</em>`;
 }
 
+function resetAirPollution() {
+    document.querySelector('#showairResponse').innerText = '';
+}
+
 function handleWeatherFormSubmission(event) {
     event.preventDefault();
+
     const city = document.querySelector('#location').value;
     document.querySelector('#location').value = null;
+
     getWeather(city);
-    document.getElementById("air-pol-stats").removeAttribute("class", "hidden");
+
+    let weatherResponse = document.getElementById("showweatherResponse");
+    let weatherH3 = document.querySelector("#weather-response-div h3");
+    let weatherDiv = document.querySelector("#weather-response-div");
+    if (!weatherH3) {
+        weatherH3 = document.createElement("h3");
+        weatherH3.textContent = "Weather Report"; 
+        weatherDiv.insertBefore(weatherH3, weatherResponse);
+    }
+
+    resetAirPollution();
+    let airPolResponse = document.getElementById("showairResponse");
+    let airPolH3 = document.querySelector("#pollution-div h3");
+    let pollutionDiv = document.getElementById("pollution-div");
+    if (!airPolH3) {
+        airPolH3 = document.createElement("h3");
+        airPolH3.textContent = "Air Quality Index";
+        pollutionDiv.insertBefore(airPolH3, airPolResponse);
+    }
+    // document.getElementById("air-pol-stats").removeAttribute("class", "hidden");
 }
 
 window.addEventListener("load", function() {
